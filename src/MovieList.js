@@ -4,22 +4,34 @@ import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("Batman");
+  const [searchTerm, setSearchTerm] = useState("Iron Man");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [expandedMovie, setExpandedMovie] = useState(null);
 
-  const API_KEY = "f6431660";
+  const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const API_URL = `https://www.omdbapi.com/`;
 
+  // Debounce search term
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500ms debounce duration
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+
   const fetchMovies = useCallback(async () => {
-    if (!searchTerm) return;
+    if (!debouncedSearchTerm) return;
 
     setLoading(true);
     setError("");
     try {
       const response = await fetch(
-        `${API_URL}?apikey=${API_KEY}&s=${searchTerm}&page=${page}`
+        `${API_URL}?apikey=${API_KEY}&s=${debouncedSearchTerm}&page=${page}`
       );
       const data = await response.json();
       if (data.Response === "True") {
@@ -31,7 +43,7 @@ const MovieList = () => {
       setError("Error fetching data. Please try again later.");
     }
     setLoading(false);
-  }, [API_KEY, API_URL, page, searchTerm]);
+  }, [API_KEY, API_URL, page, debouncedSearchTerm]);
 
   useEffect(() => {
     fetchMovies();
@@ -70,7 +82,11 @@ const MovieList = () => {
         onChange={handleSearch}
         className="w-full p-3 border border-gray-700 rounded-md mb-6 focus:outline-none focus:ring-2 focus:ring-teal-500 bg-gray-800 text-gray-200 placeholder-gray-400"
       />
-      {loading && <div className="text-center text-teal-400">Loading...</div>}
+      {loading && page === 1 && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 z-50">
+          <div className="text-center text-teal-400 text-lg">Loading...</div>
+        </div>
+      )}
       {error && <div className="text-center text-red-500">{error}</div>}
       <ul className="space-y-6">
         {movies.map((movie) => (
@@ -105,7 +121,7 @@ const MovieList = () => {
           </li>
         ))}
       </ul>
-      {loading && (
+      {loading && page > 1 && (
         <div className="text-center text-teal-400 mt-6">
           Fetching more movies...
         </div>
