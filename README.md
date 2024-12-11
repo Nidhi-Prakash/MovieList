@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Movie List App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+The Movie List App is a React application that fetches a list of movies from the OMDb API and displays them in a collapsible, paginated list. Users can search for movies by title and see detailed information about each movie, including the year, genre, director, and poster image. The app also features infinite scrolling to load more results as the user scrolls down.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Collapsible Movie Items:** Click on a movie title to expand and reveal additional details.
+- **Infinite Scrolling:** Automatically loads more movies as the user scrolls to the bottom of the list.
+- **Search Functionality:** Search for movies by title using the search bar.
+- **Loading and Error States:** Displays a loading spinner while fetching data and an error message if the API request fails.
+- **Modern UI Design:** Styled using Tailwind CSS with a dark theme.
 
-### `npm start`
+## Demo
+You can view the live deployment of the app here: [Live Demo](https://movie-list-snowy-rho.vercel.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/movie-list-app.git
+   cd movie-list-app
+   ```
 
-### `npm test`
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Set up environment variables:
+   - Create a `.env` file in the root directory.
+   - Add the following environment variable:
+     ```plaintext
+     REACT_APP_OMDB_API_KEY=your_api_key_here
+     ```
+   Replace `your_api_key_here` with your OMDb API key.
 
-### `npm run build`
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Open the app in your browser at `http://localhost:3000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app is deployed on Vercel. To deploy:
 
-### `npm run eject`
+1. Push your code to a GitHub repository.
+2. Link the repository to Vercel.
+3. Add the `REACT_APP_OMDB_API_KEY` environment variable in the Vercel dashboard.
+4. Deploy the app.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Technologies Used
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **React.js**: Frontend framework.
+- **Tailwind CSS**: For styling.
+- **OMDb API**: Movie data source.
+- **Vercel**: Deployment platform.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## How It Works
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Fetching Movies:**
+   - The app uses the OMDb API to fetch movies based on the search term and current page.
+   - Infinite scrolling fetches additional movies as the user scrolls down.
 
-## Learn More
+2. **Collapsible Items:**
+   - Movie details toggle between expanded and collapsed states when clicked.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Search:**
+   - Typing in the search bar triggers a new API request and resets the movie list.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. **Error Handling:**
+   - Displays appropriate messages for loading and error states.
